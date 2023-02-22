@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+<section class="Form py-1">
+<div class="container py-5">
+    <div class="row g-0">
+        <div class="col-lg-7 px-5 pt-5">
+            <h4>Најавете се:</h4>
+
+            <form th:method="post" th:action="@{'/userLogin'}">
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <input name="username" type="text" class="form-control my-3 p-4" placeholder="Вашето корисничко име">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <input name="password" type="password" class="form-control my-3 p-4" placeholder="Вашата лозинка">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <button type="submit" class="btn0 mt-3 mb-5">Најви се</button>
+                    </div>
+                </div>
+
+                <p>Немате профил?
+                    <a href="/registerUser"> Регистрирајте се</a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>

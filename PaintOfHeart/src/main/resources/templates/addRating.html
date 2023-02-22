@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Rating</title>
+</head>
+<style>
+    .photo{
+        width:300px;
+        height:60px;
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="../../images/logo.png" class="photo" alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/events">Настани</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <th:block th:if="${session.user == null}">
+                    <button class="btn0" >
+                        <a type="button" href="/userRegister" style="color: black">Register</a>
+                    </button>
+                </th:block>
+                <th:block th:if="${session.user == null}">
+                    <button class="btn1" >
+                        <a type="button" href="/userLogin" style="color: darkblue">Login</a>
+                    </button>
+                </th:block>
+                <th:block th:if="${session.user != null}">
+                    <button class="btn1" >
+                        <a type="button" href="/userLogout" style="color: darkblue">Logout</a>
+                    </button>
+                </th:block>
+                <th:block th:if="${session.user != null}">
+                    <button class="btn0" href="#">
+                        <th:block th:if="${session.user != null}"
+                                  th:text="${session.user.getUsername()}"></th:block>
+                    </button>
+                </th:block>
+
+            </form>
+        </div>
+    </div>
+</nav>
+<section class="Form py-1 RateSection">
+    <div class="container py-5">
+        <div class="row g-0 rowContainer">
+
+            <div class="col-lg-6 px-5 pt-5 leftSide">
+                <!--<input type="text" name="customerId" th:value="${session.user.getId()}">-->
+                <h4>Оценете го уметникот:</h4>
+                <h3 th:text="${artist.getFullName()}"></h3>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Customer name</th>
+                            <th scope="col">Customer rating</th>
+                            <th scope="col">Customer comment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="review : ${reviews}" class="product">
+                            <td th:text="${review.getCustomer().getFullName()}">
+                            <td th:text="${review.getRating()}"></td>
+                            <td th:text="${review.getContent()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form th:method="post" th:action="@{'/artists/{id}' (id=${artist.getId()})}">
+                    <div class="form-row py-3">
+                        <div class="col-lg-12">
+                            <select name="rating" class="formCSS form-select form-select-lg mb-3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option selected value="10">10</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <h4>Ваш коментар:</h4>
+
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <textarea name="content" class="form-control" id="textInForm" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row py-3">
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn0 mb-3">Додај реценизија</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <img src="../../images/forRate.jpg" class="img-fluid" id="imgForRate" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

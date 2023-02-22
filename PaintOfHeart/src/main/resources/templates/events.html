@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Events</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<style>
+  .photo{
+    width:300px;
+    height:60px;
+  }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#"><img src="../../images/logo.png" class="photo" alt="logo"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/events">Настани</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <th:block th:if="${session.user == null}">
+          <button class="btn0" >
+            <a type="button" href="/registerUser" style="color: black">Register</a>
+          </button>
+        </th:block>
+        <th:block th:if="${session.user == null}">
+          <button class="btn1" >
+            <a type="button" href="/userLogin" style="color: darkblue">Login</a>
+          </button>
+        </th:block>
+        <th:block th:if="${session.user != null}">
+          <button class="btn1" >
+            <a type="button" href="/userLogout" style="color: darkblue">Logout</a>
+          </button>
+        </th:block>
+        <th:block th:if="${session.user != null}">
+          <button class="btn0" href="#">
+            <th:block th:if="${session.user != null}"
+                      th:text="${session.user.getUsername()}"></th:block>
+          </button>
+        </th:block>
+
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Event name</th>
+            <th scope="col">City</th>
+            <th scope="col">Date</th>
+            <th scope="col">Artist</th>
+<!--            <th scope="col">Organizer</th>-->
+            <th scope="col">Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="event : ${events}" class="product">
+            <td th:text="${event.getId()}">
+            <td th:text="${event.getName()}"></td>
+            <td th:text="${event.getCity()}"></td>
+            <td th:text="${event.getDate()}"></td>
+            <td>
+              <th:block th:if="${session.user != null }">
+              <a th:if="${session.user.userType() ==3 }" th:href="@{'/artists/{id}/addRating' (id=${event.getArtist().getId()})}" th:text="${event.getArtist().getFullName()}">
+
+              </a>
+              </th:block>
+              <th:block  th:if="${session.user == null or session.user.userType()!=3}" th:text="${event.getArtist().getFullName()}" ></th:block>
+            </td>
+<!--            <td th:text="${event.getOranizer().getFullName()}"></td>-->
+            <td th:text="${event.getPrice()}"></td>
+            <td>
+              <form th:if="${session.user != null}"  th:method="get" th:action="@{'/events/{id}' (id=${event.getId()}) }">
+                <button class="btn0" th:if="${session.user.userType() == 3}" > Резервирај билет </button>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
