@@ -66,17 +66,21 @@
           <thead>
           <tr>
             <th scope="col">Event name</th>
-            <th scope="col">Total</th>
+            <th scope="col">Ticket price</th>
 
           </tr>
           </thead>
           <tbody>
-          <tr>
-<!--            <td th:text="${ticket.getEvent().getName()}">-->
-            <td th:text="${cart.getTotal()}"></td>
+          <tr th:each=" ticket : ${ticketList}">
+            <td th:text="${ticket.getEvent().getName()}">
+            <td th:text="${ticket.getPrice()}"></td>
           </tr>
           </tbody>
         </table>
+
+        <div>
+          <h3>Total: <th:block th:text="${cart.getTotal()}"></th:block></h3>
+        </div>
 
         <a href="events.html"></a>
       </div>

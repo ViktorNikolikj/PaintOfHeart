@@ -35,10 +35,7 @@ public class Transaction {
     Date createdAt;
 
     @OneToOne
-    @JoinColumns( {
-            @JoinColumn(name="id_user_customer"),
-            @JoinColumn(name="id_cart")
-    } )
+    @JoinColumn(name="id_cart")
     Cart cart;
 
     public Transaction(Date editedAt, String name, Date createdAt, Cart cart) {

@@ -9,10 +9,10 @@ import lombok.*;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "seat", schema = "project")
-@IdClass(SeatId.class)
+//@IdClass(SeatId.class)
 public class Seat {
 
-    @Id
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_event")
     Event event;
@@ -30,6 +30,4 @@ public class Seat {
         this.event = event;
         this.number = number;
     }
-
-
 }

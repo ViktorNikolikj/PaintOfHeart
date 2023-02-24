@@ -12,10 +12,10 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "cart", schema = "project")
-@IdClass(CartId.class)
+//@IdClass(CartId.class)
 public class Cart {
 
-    @Id
+
     @ManyToOne
     @JoinColumn(name="id_user_customer")
     Customer customer;

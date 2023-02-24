@@ -59,4 +59,5 @@ public class Event {
     public String getLocationAndDate(){
         return String.format("%s - %s", this.city, this.date.toString());
     }
+
 }

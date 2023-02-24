@@ -27,4 +27,5 @@ public class GalleryEvent extends Event{
         super(name, price, city, date, phoneNumber, artist, organizer);
         this.style = style;
     }
+
 }

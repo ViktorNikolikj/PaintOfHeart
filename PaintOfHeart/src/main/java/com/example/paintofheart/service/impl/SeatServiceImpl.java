@@ -37,7 +37,7 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public Seat update(int id,Event event, Integer number) {
         Seat seat = this.seatRepository.findById(id).orElseThrow(() -> new InvalidSeatIdException());
-        //seat.setEvent(event);
+        seat.setEvent(event);
         seat.setNumber(number);
         return this.seatRepository.save(seat);
     }

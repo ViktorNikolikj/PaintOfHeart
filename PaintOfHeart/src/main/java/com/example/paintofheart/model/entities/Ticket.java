@@ -35,26 +35,34 @@ public class Ticket {
     String eventType;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "id_seat"),
-            @JoinColumn(name = "id_event")
-    })
+    @JoinColumn(name = "id_seat")
     Seat seat;
 
+//    @ManyToOne
+//    @JoinColumn(name="id_user_customer") //??
+//    Cart cart;
+
     @ManyToOne
-    @JoinColumns( {
-            @JoinColumn(name="id_user_customer"),
-            @JoinColumn(name="id_cart")
-    } )
+    @JoinColumn(name="id_cart") //??
     Cart cart;
 
-    public Ticket(Integer price, Date date, String location, String eventType, Seat seat, Cart cart) {
+    @ManyToOne
+    @JoinColumn(name="id_user_customer") //??
+    Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "id_event")
+    Event event;
+
+    public Ticket(Integer price, Date date, String location, String eventType, Seat seat, Cart cart, Customer customer, Event event) {
         this.price = price;
         this.date = date;
         this.location = location;
         this.eventType = eventType;
         this.seat = seat;
         this.cart = cart;
+        this.customer = customer;
+        this.event = event;
     }
 
     public Customer getCustomer(){

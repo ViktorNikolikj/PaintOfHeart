@@ -2,10 +2,7 @@ package com.example.paintofheart.web;
 
 import com.example.paintofheart.model.entities.*;
 import com.example.paintofheart.model.exceptions.InvalidCustomerIdException;
-import com.example.paintofheart.service.CartService;
-import com.example.paintofheart.service.CustomerService;
-import com.example.paintofheart.service.EventService;
-import com.example.paintofheart.service.SeatService;
+import com.example.paintofheart.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,18 +20,19 @@ public class EventController {
     private final CustomerService customerService;
     private final SeatService seatService;
     private final CartService cartService;
+    private final TicketService ticketService;
 
-    public EventController(EventService eventService, CustomerService customerService, SeatService seatService, CartService cartService) {
+    public EventController(EventService eventService, CustomerService customerService, SeatService seatService, CartService cartService, TicketService ticketService) {
         this.eventService = eventService;
         this.customerService = customerService;
         this.seatService = seatService;
         this.cartService = cartService;
+        this.ticketService = ticketService;
     }
 
 
-
     @GetMapping("/events")
-    public String showAllEvents(Model model, HttpServletRequest request){
+    public String showAllEvents(Model model, HttpServletRequest request) {
         List<Event> events = this.eventService.allEvents();
         model.addAttribute("events", events);
 
@@ -43,22 +41,22 @@ public class EventController {
 
     @GetMapping("/events/{id}")
     public String showEvent(@PathVariable int id, Model model,
-                            HttpServletRequest request){
+                            HttpServletRequest request) {
 
         Event event = this.eventService.findById(id);
         model.addAttribute("event", event);
 
         User user = (User) request.getSession().getAttribute("user");
-        if(user == null){
+        if (user == null) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", "Треба да сте регистрирани како купувач!");
             return "showEvent";
         }
 
-        try{
+        try {
             Customer customer = this.customerService.findById(user.getId());
 
-        }catch (InvalidCustomerIdException a){
+        } catch (InvalidCustomerIdException a) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", "Треба да сте регистрирани како купувач!");
 
@@ -72,14 +70,16 @@ public class EventController {
     public String ticketReservation(@PathVariable int id,
                                     @RequestParam String seatNumber,
                                     HttpServletRequest request,
-                                    Model model){
-            Event event = this.eventService.findById(id);
-            User user = (User) request.getSession().getAttribute("user");
-            Customer customer = this.customerService.findById(user.getId());
-            Seat seat = this.seatService.create(event,Integer.parseInt(seatNumber));
-            Cart cart = this.cartService.create(customer, event.getPrice());
+                                    Model model) {
+        Event event = this.eventService.findById(id);
+        User user = (User) request.getSession().getAttribute("user");
+        Customer customer = this.customerService.findById(user.getId());
+        Seat seat = this.seatService.create(event, Integer.parseInt(seatNumber));
+        Cart cart = this.cartService.create(customer, event.getPrice());
+        //Ima event type, a vo event klasata i bazata nema event type za eventot
+        Ticket ticket = this.ticketService.create(event.getPrice(), event.getDate(), event.getCity(), "Neodredredeno", seat, cart, customer, event);
 
-        return "redirect:/cart/{id}";
+        return "redirect:/cart";
 
     }
 }
