@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -21,13 +22,17 @@ public class EventController {
     private final SeatService seatService;
     private final CartService cartService;
     private final TicketService ticketService;
+    private final ArtistService artistService;
+    private final OrganizerService organizerService;
 
-    public EventController(EventService eventService, CustomerService customerService, SeatService seatService, CartService cartService, TicketService ticketService) {
+    public EventController(EventService eventService, CustomerService customerService, SeatService seatService, CartService cartService, TicketService ticketService, ArtistService artistService, OrganizerService organizerService) {
         this.eventService = eventService;
         this.customerService = customerService;
         this.seatService = seatService;
         this.cartService = cartService;
         this.ticketService = ticketService;
+        this.artistService = artistService;
+        this.organizerService = organizerService;
     }
 
 
@@ -81,5 +86,32 @@ public class EventController {
 
         return "redirect:/cart";
 
+    }
+
+    @PostMapping("events/{id}/delete")
+    public String deleteEvenet(@PathVariable int id){
+        this.eventService.delete(id);
+        return "redirect:/events";
+    }
+
+    @GetMapping("/events/add")
+    public String getAddEventPage(Model model){
+        model.addAttribute("artists", this.artistService.allArtists());
+        model.addAttribute("organizers", this.organizerService.findAll());
+        return "addEvent";
+    }
+
+    @PostMapping("/addEvent")
+    public String addEvent(@RequestParam String name,
+                           @RequestParam String price,
+                           @RequestParam String city,
+                           @RequestParam String date,
+                           @RequestParam String phoneNumber,
+                           @RequestParam int artist,
+                           @RequestParam int organizer){
+        Artist artist1 = this.artistService.findById(artist);
+        Organizer organizer1 = this.organizerService.findById(organizer);
+        this.eventService.create(name, Integer.parseInt(price), city, Date.valueOf(date), phoneNumber, artist1, organizer1);
+        return "redirect:/events";
     }
 }
