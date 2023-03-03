@@ -17,7 +17,7 @@ public class OrganizerServiceImpl implements OrganizerService {
     private final OrganizerRepository organizerRepository;
 
     @Override
-    public List<Organizer> findAllAdmins() {
+    public List<Organizer> findAll() {
         return organizerRepository.findAll();
     }
 

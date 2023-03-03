@@ -5,7 +5,7 @@ import com.example.paintofheart.model.entities.Organizer;
 import java.util.List;
 
 public interface OrganizerService {
-    List<Organizer> findAllAdmins();
+    List<Organizer> findAll();
     Organizer findById(int id);
     Organizer create(String username, String email, String surname, String name, String phoneNumber, String password);
     Organizer update(int id,String username, String email, String surname, String name, String phoneNumber, String password);
