@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TicketReservation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+
+    .team{
+        margin-left: 450px;
+        font-family: Montserrat;
+    }
+    p{
+        padding-right: 100px;
+        padding-left: 100px;
+        margin-top: 60px;
+        text-align: justify-all;
+        font-family: Montserrat;
+    }
+    .photo{
+        width:300px;
+        height:60px;
+    }
+    .nv{
+        background-color:  rgba(240, 248, 255, .5);
+        margin-top: 20px;
+    }
+    body {
+        background-color: #a0a5e9;
+    }
+    .btn1{
+        background-color: #a0a5e9;
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: bold;
+        height: 40px;
+        line-height: 20px;
+        list-style: none;
+        margin: 0;
+        outline: none;
+        padding: 10px 16px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: color 100ms;
+        vertical-align: baseline;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .btn1:hover,
+    .btn1:focus {
+        background-color: cornflowerblue;
+    }
+
+    .btn0{
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: bold;
+        height: 40px;
+        line-height: 20px;
+        list-style: none;
+        margin: 0;
+        outline: none;
+        padding: 10px 16px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: color 100ms;
+        vertical-align: baseline;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .btn0:hover,
+    .btn0:focus {
+        background-color: darkslateblue;
+    }
+
+    h1,h3{
+        text-align: center;
+        font-family: Montserrat;
+    }
+    h1{
+        padding-top: 25px;
+    }
+    .search{
+        padding-right: 20px;
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: bold;
+        font-family: Montserrat;
+    }
+    a {
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg nv">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="../../images/logo.png" class="photo" alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/events">Events</a>
+                </li>
+            </ul>
+            <form class="search" action="/search" method="get">
+                <input type="text" id="search" name="q" style="border-radius: 4px; border-style: none">
+                <button type="submit" style="border-radius: 4px; border-style: none;
+                font-weight: normal; font-family: Montserrat; font-size: medium">Search</button>
+            </form>
+            <form class="d-flex">
+                <th:block th:if="${session.user == null}">
+                    <button class="btn0" >
+                        <a type="button" href="/registerUser" style="color: black">Register</a>
+                    </button>
+                </th:block>
+                <th:block th:if="${session.user == null}">
+                    <button class="btn1" >
+                        <a type="button" href="/userLogin" style="color: darkblue">Login</a>
+                    </button>
+                </th:block>
+                <th:block th:if="${session.user != null}">
+                    <button class="btn1" >
+                        <a type="button" href="/userLogout" style="color: darkblue">Logout</a>
+                    </button>
+                </th:block>
+                <th:block th:if="${session.user != null}">
+                    <button class="btn0" href="#">
+                        <th:block th:if="${session.user != null}"
+                                  th:text="${session.user.getUsername()}"></th:block>
+                    </button>
+                </th:block>
+
+            </form>
+        </div>
+    </div>
+</nav>
+<div>
+    <h1>About</h1>
+    <h3>Welcome to our web app, your one-stop solution for promoting and reserving tickets for cultural events!
+    </h3>
+    <p>
+        We understand the importance of culture and art in our lives, and our aim is to make it easier for you to experience and enjoy them. Whether you're a theater buff, a music lover, or a dance enthusiast, our app provides you with the opportunity to discover and book tickets to your favorite events, all in one place.
+        <br>
+
+        Our platform is designed to offer a seamless experience, with a user-friendly interface that allows you to search for events by category, date, location, and genre. You can also browse through our curated selection of featured events and recommended shows.
+        <br>
+
+        Once you've found an event that you're interested in, booking tickets is easy. Simply select the number of tickets you need, choose your preferred seats, and complete the checkout process. Our secure payment gateway ensures that your personal and financial information is safe and protected.
+        <br>
+
+        In addition to providing a convenient booking experience, our app also helps event organizers promote their events to a wider audience. By partnering with us, organizers can showcase their events to a targeted audience of culture enthusiasts, thereby increasing their visibility and ticket sales.
+        <br>
+
+        So whether you're a culture lover looking for the next big event, or an organizer hoping to promote your cultural event, our web app has got you covered. Join us now and experience the joy of culture and art!
+
+
+
+
+    </p>
+</div>
+<br>
+<div class="team">
+    <h4>MEET THE TEAM</h4>
+
+    <ul>
+        <li class="items">Anastasija Cvetkovska</li><img>
+        <li class="items">Viktor Nikolikj</li>
+    </ul>
+</div>
+
+</body>
+</html>

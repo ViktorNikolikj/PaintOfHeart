@@ -5,8 +5,93 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Login</title>
+    <style>
+        .img2{
+            float: right;
+            width: 200px;
+            position: fixed;
+            margin-left: 700px;
+
+            padding-bottom: 50px;
+            padding-right: 50px;
+            height: 400px;
+        }
+        .img3{
+            margin-top: -410px;
+            padding-right: 10px;
+            width: 700px;
+        }
+        .nv{
+
+            background-color:  rgba(240, 248, 255, .5);
+            margin-top: 20px;
+        }
+        body{
+            background-color: #d5ead7;
+        }
+        .photo{
+            width:300px;
+            height:60px;
+        }
+        a {
+            text-decoration: none;
+        }
+        .btn0{
+            background-color: mediumseagreen;
+            border-radius: 8px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-weight: bold;
+            height: 40px;
+            line-height: 20px;
+            list-style: none;
+            margin: 0;
+            outline: none;
+            padding: 10px 16px;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            transition: color 100ms;
+            vertical-align: baseline;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .btn0:hover,
+        .btn0:focus {
+            background-color: lightgreen;
+        }
+    </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg nv">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="../../images/logo.png" class="photo" alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home"><b>Home</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/events"><b>Events</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about"><b>About</b></a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
 <section class="Form py-1">
 <div class="container py-5">
     <div class="row g-0">
@@ -28,7 +113,7 @@
 
                 <div class="form-row">
                     <div class="col-lg-7">
-                        <button type="submit" class="btn0 mt-3 mb-5">Најави се</button>
+                        <button type="submit" class="btn0">Најави се</button>
                     </div>
                 </div>
 
@@ -40,6 +125,9 @@
         </div>
     </div>
 </div>
+</section>
+<section class="img2">
+    <img class="img3" src="../../images/sunrise.jpg">
 </section>
 </body>
 </html>
